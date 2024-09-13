@@ -1,0 +1,26 @@
+# Wubinworks Magento module .gitignore
+
+*.bak
+*.bak.*
+*.bat
+*.cmd
+*.conf
+*.config
+*.csv
+!/i18n/**/*.csv
+*.dll
+[dD]esktop.ini
+.DS_STORE
+*.exe
+*.ini
+*.json
+!/composer.json
+*.lnk
+/?*/**/*.md
+*.org
+*.orgin
+*.sh
+*.temp
+[tT]humbs.db
+*.tmp
+/?*/**/*.txt

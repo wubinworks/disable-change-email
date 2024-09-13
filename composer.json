@@ -1,0 +1,32 @@
+{
+    "name": "wubinworks/module-disable-change-email",
+    "description": "Prevent customer from changing account email address. Suitable for many business environments.",
+    "require": {
+        "php": ">=7.3",
+        "magento/module-customer": "*",
+        "magento/magento2-base": "~2.4.0"
+    },
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": "OSL-3.0",
+    "authors": [
+        {
+            "name": "Wubinworks",
+            "email": "wubinworks@outlook.com",
+            "homepage": "https://www.wubinworks/disable-change-email.html",
+            "role": "Developer"
+        }
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Wubinworks\\DisableChangeEmail\\": ""
+        }
+    }
+}
