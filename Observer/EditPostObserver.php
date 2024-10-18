@@ -10,9 +10,7 @@ namespace Wubinworks\DisableChangeEmail\Observer;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\App\ResponseInterface;
 use Magento\Framework\App\ActionFlag;
-use Magento\Framework\UrlInterface;
-use Magento\Framework\Message\ManagerInterface as MessageManagerInterface;
-use Wubinworks\DisableChangeEmail\Helper\Data as Helper;
+use Wubinworks\DisableChangeEmail\Helper\System as SystemHelper;
 
 /**
  * Prevent customer from changing account email address
@@ -20,83 +18,61 @@ use Wubinworks\DisableChangeEmail\Helper\Data as Helper;
 class EditPostObserver implements \Magento\Framework\Event\ObserverInterface
 {
     /**
-     * @var RequestInterface
-     */
-    private $request;
-
-    /**
      * @var ResponseInterface
      */
-    private $response;
+    protected $response;
 
     /**
      * @var ActionFlag
      */
-    private $actionFlag;
+    protected $actionFlag;
 
     /**
-     * @var UrlInterface
+     * @var SystemHelper
      */
-    private $urlBuilder;
-
-    /**
-     * @var MessageManagerInterface
-     */
-    private $messageManager;
-
-    /**
-     * @var Helper
-     */
-    private $helper;
+    protected $systemHelper;
 
     /**
      * Constructor
      *
-     * @param RequestInterface $request
      * @param ResponseInterface $response
      * @param ActionFlag $actionFlag
-     * @param UrlInterface $urlBuilder
-     * @param MessageManagerInterface $messageManager
-     * @param Helper $helper
+     * @param SystemHelper $systemHelper
      */
     public function __construct(
-        RequestInterface $request,
         ResponseInterface $response,
         ActionFlag $actionFlag,
-        UrlInterface $urlBuilder,
-        MessageManagerInterface $messageManager,
-        Helper $helper
+        SystemHelper $systemHelper
     ) {
-        $this->request = $request;
         $this->response = $response;
         $this->actionFlag = $actionFlag;
-        $this->urlBuilder = $urlBuilder;
-        $this->messageManager = $messageManager;
-        $this->helper = $helper;
+        $this->systemHelper = $systemHelper;
     }
 
     /**
-     * Check change_email parameter
+     * Prevent logout and sending notification email if 'change_email' parameter is set
      *
      * @param \Magento\Framework\Event\Observer $observer
      * @return void
-
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function execute(\Magento\Framework\Event\Observer $observer): void
     {
-        if (!$this->request->isPost()
-            || !$this->request->getPost('change_email', false)
-            || !$this->helper->isDisableChangeEmail()) {
+        /** $request RequestInterface */
+        $request = $observer->getRequest();
+        if (!$request->isPost()
+            || !$request->getPost('change_email', false)
+            || !$this->systemHelper->isChangeEmailDisabled()) {
             return;
         }
 
         $this->response->setRedirect(
-            $this->urlBuilder->getUrl('customer/account/edit'),
+            $this->systemHelper->getUrl('customer/account/edit'),
             301
         );
-        $this->messageManager->addErrorMessage(__('You cannot change email address.'));
-        /* Stop further response processing */
+        $this->systemHelper->getMessageManager()->addErrorMessage(
+            $this->systemHelper->getChangeEmailErrorPhrase()
+        );
+        /** Stop further response processing */
         $this->actionFlag->set('', \Magento\Framework\App\Action\Action::FLAG_NO_DISPATCH, true);
     }
 }

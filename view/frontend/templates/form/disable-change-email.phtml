@@ -10,8 +10,10 @@
 
 // phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
 // phpcs:disable Magento2.Templates.ThisInTemplate.FoundHelper
+
+use Wubinworks\DisableChangeEmail\Helper\System as SystemHelper;
 ?>
-<?php if ($this->helper(\Wubinworks\DisableChangeEmail\Helper\Data::class)->isDisableChangeEmail()): ?>
+<?php if ($this->helper(SystemHelper::class)->isChangeEmailDisabled()): ?>
     <script>
         require([
             'jquery',
