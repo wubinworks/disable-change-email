@@ -1,13 +1,19 @@
 {
     "name": "wubinworks/module-disable-change-email",
-    "description": "Prevent customer from changing account email address. Suitable for many business environments.",
+    "description": "A simple Magento 2 extension that prevents customer from changing account email address. Works for both Frontend and WebAPI area.",
+    "keywords": [
+        "disable change email",
+        "email notification",
+        "webapi",
+        "magento 2 extension"
+    ],
     "require": {
         "php": ">=7.3",
         "magento/module-customer": "*",
         "magento/magento2-base": "~2.4.0"
     },
     "type": "magento2-module",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "license": "OSL-3.0",
     "authors": [
         {

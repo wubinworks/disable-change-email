@@ -11,7 +11,7 @@
             <group id="account_information">
                 <field id="disable_change_email" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>Disable Change Email</label>
-                    <comment>When changed, please clear cache</comment>
+                    <comment><![CDATA[<a href="https://www.wubinworks.com/disable-change-email.html" target="_blank" rel="noreferrer">Help</a>]]></comment>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
